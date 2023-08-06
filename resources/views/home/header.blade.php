@@ -34,12 +34,21 @@
                     @if (Route::has('login'))
                         @auth
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">{{ Auth::user()->name }} <span class="caret"></span></a>
-                                <ul class="dropdown-menu  rounded-md ring-1 ring-black ring-opacity-5 py-1 bg-white">
+                                <a class="nav-link dropdown-toggle "
+                                   href="#"
+                                   data-toggle="dropdown"
+                                   role="button"
+                                   aria-haspopup="true"
+                                   aria-expanded="true">
+                                    <span class="nav-label">
+                                        {{ Auth::user()->name }}
+                                        <span class="caret"> </span>
+                                </a>
+                                <ul class="dropdown-menu">
                                     <li>
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
-                                            <input class="btn " type="submit" value="Logout">
+                                            <input class="btn  " type="submit" value="Logout">
                                         </form>
                                     </li>
                                     <li class="text-center"><a class=" " href={{ route('profile.show') }}> Your Profile</a></li>
