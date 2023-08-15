@@ -5,6 +5,12 @@
     @include('admin.css')
 
     <style>
+        table, th, td {
+            border: 1px solid white;
+        }
+        th, td {
+            padding: 10px;
+        }
         .div_center{
             text-align: center;
             padding: 40px;
@@ -18,6 +24,12 @@
         }
         .alert_message{
             font-size: 25px;
+        }
+        .center{
+            margin: auto;
+            width: 50%;
+            text-align: center;
+            border: 3px solid #7bbbf6;
         }
     </style>
 </head>
@@ -51,7 +63,20 @@
                     @enderror
                 </form>
             </div>
+            <table class="center">
+                <tr>
+                      <td>Category Name</td>
+                    <td>Action</td>
+                </tr>
+                @foreach($categories->reverse() as $category )
+                <tr>
+                    <td>{{$category->category_name}}</td>
+                    <td><a  onclick="return confirm('Are you sure to delete??')" href="{{url('delete_category',$category->id)}}" class="btn btn-danger">Delete</a></td>
+                </tr>
+                @endforeach
+            </table>
         </div>
+
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
