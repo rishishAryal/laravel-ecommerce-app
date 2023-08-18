@@ -11,12 +11,20 @@
                 <div class="box">
                     <div class="option_container">
                         <div class="options">
-                            <a href="" class="option1">
-                                {{$product->title}}
+                            <a href="{{url('product_details',$product->id)}}" class="option1">
+                                Product Details
                             </a>
-                            <a href="" class="option2">
-                                Buy Now
-                            </a>
+                            <form action="{{url('add_cart',$product->id)}}" method="post">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input type="number" name="quantity" value="1" min="1" max="{{$product->quantity}}" style="width: 100px">
+                                    </div>
+                                   <div class="col-md-4">
+                                        <input type="submit" value="Add To Cart">
+                                   </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="img-box">
@@ -45,12 +53,14 @@
 
                         @else
                             <h6>
-                              -
+                            Discount Price: <span>-</span>
                             </h6>
                         @endif
+
                         <h6>
                            Final Price: <span style="color: blue">{{'$'.($product->price-$product->discount_price)}}</span>
                         </h6>
+
                     </div>
                 </div>
             </div>
