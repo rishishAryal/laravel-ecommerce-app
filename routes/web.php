@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,3 +45,5 @@ route::post('/add_cart/{id}',[HomeController::class,'add_cart']);
 route::get('/show_cart',[HomeController::class,'show_cart']);
 route::get('/delete_cart/{id}',[HomeController::class,'delete_cart']);
 route::get('/cash_order',[HomeController::class,'cash_order']);
+route::get('/stripe/{totalPrice}',[HomeController::class,'stripe']);
+Route::post('stripe/{totalPrice}', [HomeController::class,'stripePost'])->name('stripe.post');

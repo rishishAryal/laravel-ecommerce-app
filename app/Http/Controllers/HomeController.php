@@ -8,6 +8,8 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\models\User;
+use Session;
+use Stripe;
 class HomeController extends Controller
 {
     //
@@ -107,7 +109,55 @@ class HomeController extends Controller
 
 
         }
-        return redirect()->back()->with('message','Order Placed! Keep Shopping (;');
+        return redirect()->back()->with('message','Order Placed! Keep Shopping (:');
 
+    }
+
+    public function stripe($totalPrice){
+        return view('home.stripe',compact('totalPrice'));
+    }
+    public function stripePost(Request $request, $totalPrice)
+    {
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        Stripe\Charge::create ([
+            "amount" => $totalPrice * 100,
+            "currency" => "usd",
+            "source" => $request->stripeToken,
+            "description" => "Thanks For Payment"
+        ]);
+
+        $user= Auth::User();
+        $userId =$user->id;
+        $cartDatas=Cart:: where('user_id','=',$userId)->get();
+        foreach ($cartDatas as $cartData )
+        {
+            $order = new Order();
+            $order->name=$cartData->name;
+            $order->phone=$cartData->phone;
+            $order->email=$cartData->email;
+            $order->address=$cartData->address;
+            $order->user_id=$cartData->user_id;
+
+            $order->product_title=$cartData->product_title;
+            $order->price=$cartData->price;
+            $order->quantity=$cartData->quantity;
+            $order->image=$cartData->image;
+            $order->product_id=$cartData->product_id;
+
+            $order->payment_status='Paid Using Card';
+            $order->delivery_status='processing';
+            $order->save();
+
+            $cart_id=$cartData->id;
+            $cart=Cart::find($cart_id);
+            $cart->delete();
+
+
+        }
+
+        Session::flash('success', 'Payment successful!');
+
+        return back();
     }
 }

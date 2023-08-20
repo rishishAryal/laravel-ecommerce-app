@@ -94,7 +94,7 @@
                     <h3>Proceed To Order :</h3>
                     <div class="d-flex justify-content-center " style="gap: 15px">
                         <a class="btn btn-danger " style="font-size: 17px;font-weight: bold" href="{{url('cash_order ')}}">Payment Via Cash</a>
-                        <a class="btn btn-dark  "  style="font-size: 17px;font-weight: bold" href="">Payment Via Card</a>
+                        <a class="btn btn-dark  "  style="font-size: 17px;font-weight: bold" href="{{url('stripe',$totalPrice)}}">Payment Via Card</a>
                     </div>
 
                 </div>
