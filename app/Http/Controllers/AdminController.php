@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use PDF;
 class AdminController extends Controller
 {
     public function  view_category(){
@@ -94,5 +96,27 @@ class AdminController extends Controller
         $product->save();
 
         return redirect()->back()->with('message','Product Updated');
+    }
+
+
+    public function order(){
+$orders = Order::all();
+
+        return view('admin.order',compact('orders'));
+    }
+
+    public function delivered($id){
+        $order=Order::find($id);
+        $order->delivery_status = "Delivered";
+        $order->payment_status= 'Paid';
+        $order->save();
+        return redirect()->back();
+    }
+
+    public function print_pdf($id){
+        $order=Order::find($id);
+$pdf=PDF::loadView('admin.pdf',compact('order'));
+return $pdf->download('order_details.pdf');
+
     }
 }
