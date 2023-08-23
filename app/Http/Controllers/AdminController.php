@@ -119,4 +119,7 @@ $pdf=PDF::loadView('admin.pdf',compact('order'));
 return $pdf->download('order_details.pdf');
 
     }
+    public function send_email($id){
+
+    }
 }

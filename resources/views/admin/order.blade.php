@@ -33,14 +33,12 @@
                                <a href="{{url('print_pdf',$order->id)}}" class="btn btn-primary">Print PDF</a>
                             @if($order->delivery_status==='processing')
                             <a onclick="return confirm('are you sure this product is delivered??')" class="btn btn-danger " href="{{url('delivered',$order->id)}}">Change delivery status to Delivered </a>
-
-
-
                             @endif
+                               <a href="{{url('send_email',$order->id)}}" class="btn btn-success">Send Email</a>
                            </div>
                             <div class="mt-4">
                                 <h4>Order Status</h4>
-                                <span class="status-badge badge badge-success  " style="font-size: 20px">Payment Status: {{$order->payment_status}}</span>
+                                <span class="status-badge badge badge-danger  " style="font-size: 20px">Payment Status: {{$order->payment_status}}</span>
                                 <span class="status-badge badge badge-info mt-3" style="font-size: 20px">Delivery Status: {{$order->delivery_status}}</span>
                             </div>
                         </div>

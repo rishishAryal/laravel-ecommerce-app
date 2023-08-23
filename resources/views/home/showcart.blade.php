@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+            integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Basic -->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -40,6 +42,7 @@
     </style>
 </head>
 <body>
+
 <div class="hero_area">
     <!-- header section strats -->
     @include('home.header')
@@ -78,7 +81,7 @@
                                <p class="card-text">Quantity: {{$cart->quantity}} </p>
                             </div>
                             <div class="col-md-3 d-flex align-items-center justify-content-end">
-                                <a onclick="return confirm('Are you sure to delete??')" href="{{url('delete_cart',$cart->id)}}" class="btn btn-danger">Remove</a>
+                                <a onclick="confirmation(event)" href="{{url('delete_cart',$cart->id)}}" class="btn btn-danger">Remove</a>
                             </div>
                         </div>
 
@@ -152,6 +155,9 @@
 
     </p>
 </div>
+<script>
+
+</script>
 <!-- jQery -->
 <script src="home/js/jquery-3.4.1.min.js"></script>
 <!-- popper js -->

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Product;
@@ -10,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\models\User;
 use Session;
 use Stripe;
+use RealRashid\SweetAlert\Facades\Alert;
 class HomeController extends Controller
 {
     //
@@ -55,7 +55,8 @@ class HomeController extends Controller
 
             $cart->quantity=$request->quantity;
             $cart->save();
-            return  redirect('/show_cart');
+
+            return  redirect()->back();
         }
         else {
             return redirect('login');
@@ -121,6 +122,7 @@ class HomeController extends Controller
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
         Stripe\Charge::create ([
+
             "amount" => $totalPrice * 100,
             "currency" => "usd",
             "source" => $request->stripeToken,
