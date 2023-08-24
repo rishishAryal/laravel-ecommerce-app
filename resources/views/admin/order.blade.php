@@ -16,8 +16,16 @@
     <div class="main-panel">
         <div class="content-wrapper">
             <h1 class="text-center"> All Orders</h1>
+            <div class="mt-4" style="display: flex; align-items: center; justify-content: center; ">
+
+                <form method="get" action="{{url('search')}}">
+                    @csrf
+                    <input type="text" name="search" placeholder="search!!">
+                    <input type="submit" value="search" class="btn btn-outline-primary">
+                </form>
+            </div>
             <div style="height: 2px; color: white; padding: 1px;width: 100%; background-color: white; margin-top: 20px"></div>
-@foreach($orders as $order)
+@forelse($orders as $order)
                 <div class="container mt-4">
 
                     <div class="row">
@@ -64,7 +72,16 @@
 
                 </div>
                 <div style="height: 2px; color: white; padding: 1px;width: 100%; background-color: white; margin-top: 20px"></div>
-            @endforeach
+            @empty
+                <div class="container mt-5">
+                    <div class="text-center">
+                        <h1 class="display-4 text-danger">No Orders Found</h1>
+                        <p class="lead">Sorry, we couldn't find any orders .</p>
+                        <img src="https://www.cambridge.org/elt/blog/wp-content/uploads/2019/07/Sad-Face-Emoji.png" height="150" width="150" alt="Sad Emoji or Illustration" class="img-fluid">
+
+                    </div>
+                </div>
+            @endforelse
         </div>
 
     </div>

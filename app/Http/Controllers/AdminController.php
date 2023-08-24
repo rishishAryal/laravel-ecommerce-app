@@ -141,4 +141,21 @@ return $pdf->download('order_details.pdf');
         Notification::send($order, new SendEmailNotification($details));
         return redirect()->back();
     }
+
+    public function searchData(Request $request){
+
+        $searchText=$request->search;
+        $orders=Order::where('name','LIKE',"%$searchText%")
+            ->orWhere('phone','LIKE',"%$searchText%")->
+            orWhere('email','LIKE',"%$searchText%")->
+            orWhere('address','LIKE',"%$searchText%")->
+            orWhere('phone','LIKE',"%$searchText%")->
+            orWhere('product_title','LIKE',"%$searchText%")->
+            orWhere('payment_status','LIKE',"%$searchText%")->
+            orWhere('delivery_status','LIKE',"%$searchText%")->
+            get();
+        return view('admin.order',compact('orders'));
+
+
+    }
 }
