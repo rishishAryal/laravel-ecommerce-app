@@ -76,7 +76,7 @@ font-weight: 600;
     <div class="container mt-5">
         <div class="row" style="margin-left:100px " >
             <div class="col-md-5 offset-md-3">
-                <div class="card">
+                <div class="card mb-4">
                     <img src="{{url('/product',$product->image)}}" width="300" height="400"  class="col-md-12 " alt="Product Image">
                     <div class="card-body">
                         <h5 class="card-title"> {{$product->title}}</h5>
