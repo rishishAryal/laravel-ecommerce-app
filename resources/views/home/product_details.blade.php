@@ -71,56 +71,46 @@ font-weight: 600;
 
     <!-- end header section -->
     <!-- slider section -->
-    <div class="product-card" style="margin: auto; width: 30%">
-        <div class="mb-4">
-        <img  src="{{url('/product',$product->image)}}" width="350px" height="300px" alt="">
-        </div>
-        <h4 style="display: block">
-            {{$product->title}}
-        </h4>
-        <p class="product-description">{{$product->description}}</p>
-        @if($product->discount_price)
-            <h5>
-                Price: <span style="text-decoration: line-through; color: red">{{'$'.($product->price)}}</span>
-            </h5>
-        @else
-            <h5>
-                Price: <span>{{'$'.($product->price)}}</span>
-            </h5>
-        @endif
 
-        @if($product->discount_price)
-            <h5>
-                Discount Price: <span style="color: green"> {{'$'.($product->discount_price)}}</span>
-            </h5>
 
-        @else
-            <h5>
-                Discount Price: <span>-</span>
-            </h5>
-        @endif
+    <div class="container mt-5">
+        <div class="row" style="margin-left:100px " >
+            <div class="col-md-5 offset-md-3">
+                <div class="card">
+                    <img src="{{url('/product',$product->image)}}" width="300" height="400"  class="col-md-12 " alt="Product Image">
+                    <div class="card-body">
+                        <h5 class="card-title"> {{$product->title}}</h5>
+                        <p class="card-text">{{$product->description}}</p>
+                        <p class="card-text">Quantity: {{$product->quantity}}</p>
 
-        <h5>
-            Final Price: <span style="color: blue">{{'$'.($product->price-$product->discount_price)}}</span>
-        </h5>
-        <h5>
-            Category: <span style="color: #f33e5f" >{{$product->category}}</span>
-        </h5>
-        <h5>
-            Quantity: <span style="color: #086024" >{{$product->quantity}}</span>
-        </h5>
-        <div>
-            <form action="{{url('add_cart',$product->id)}}" method="post">
-                @csrf
-                <div class="row">
-                    <div class="col-md-4">
-                        <input type="number" name="quantity" value="1" min="1" max="{{$product->quantity}}" style="width: 100px">
-                    </div>
-                    <div class="col-md-4">
-                        <input type="submit" value="Add To Cart">
+                    @if($product->discount_price)
+                            <p class="card-text"> Price: <strong class="text-danger" style="text-decoration: line-through">{{'$'.($product->price)}}</strong></p>
+                            <p class="card-text">Discount Price: <strong class="text-success" >{{'$'.($product->discount_price)}}</strong></p>
+                            <p class="card-text">Discounted Price: <strong class="text-primary" >{{'$'.($product->price-$product->discount_price)}}</strong></p>
+
+
+                        @else
+                            <p class="card-text"> Price: <strong class="text-danger" >{{'$'.($product->price)}}</strong></p>
+
+                        @endif
+
+                        <p class="card-text">Category:<strong> {{$product->category}}</strong></p>
+                        <div>
+                            <form action="{{url('add_cart',$product->id)}}" method="post">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input type="number" name="quantity" value="1" min="1" max="{{$product->quantity}}" style="width: 100px">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="submit" value="Add To Cart">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
     <!-- end slider section -->

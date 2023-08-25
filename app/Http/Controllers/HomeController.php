@@ -20,7 +20,14 @@ class HomeController extends Controller
     public function redirect(){
         $usertype=Auth::user()->usertype;
         if($usertype ==='1'){
-            return view('admin.home');
+            $total_products= Product::all()->count();
+            $total_orders= Order::all()->count();
+            $total_users=User::all()->count();
+            $total_revenue = Order::sum('price');
+            $total_delivered=Order::where('delivery_status','=','Delivered')->get()->count();
+            $order_processing=Order::where('delivery_status','=','processing')->get()->count();
+            return view('admin.home',
+                compact('total_products','total_orders','total_users','total_revenue','total_delivered','order_processing'));
         } else
         {
             $products=Product::paginate(10);
@@ -131,7 +138,7 @@ class HomeController extends Controller
 
         $user= Auth::User();
         $userId =$user->id;
-        $cartDatas=Cart:: where('user_id','=',$userId)->get();
+        $cartDatas=Cart::where('user_id','=',$userId)->get();
         foreach ($cartDatas as $cartData )
         {
             $order = new Order();
@@ -161,5 +168,28 @@ class HomeController extends Controller
         Session::flash('success', 'Payment successful!');
 
         return back();
+    }
+
+    public function show_order(){
+
+         if(Auth::id()){
+             $user=Auth::user();
+             $id=$user->id;
+             $orders = Order::where('user_id','=',$id)->get();
+
+             return view('home.order',compact('orders'));
+            }
+        else {
+                 return redirect('login');
+        }
+
+
+    }
+    public function cancel_order($id)
+    {
+    $order=Order::find($id);
+    $order->delivery_status="Order Cancelled";
+    $order->save();
+    return redirect()->back();
     }
 }
